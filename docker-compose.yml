@@ -1,7 +1,7 @@
 version: "3"
 services:
   app:
-    container_name: app
+    container_name: event_app
     restart: always
     build: ./
     command: nodemon src/server.js
@@ -12,11 +12,12 @@ services:
     depends_on:
       - mongo
   mongo:
-    container_name: mongo
+    container_name: event_mongo
     image: mongo
     ports:
       - "27017:27017"
   adminmongo:
+    container_name: event_mongo_client
     image: "mrvautin/adminmongo"
     ports:
       - 1234:1234
