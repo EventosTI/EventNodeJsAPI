@@ -1,28 +1,27 @@
-'use strict';
-
 const express = require('express');
-const bodyParser = require('body-parser');
-const mongoose = require('mongoose');
+const routes = require('./routes');
+const http = require('http');
+const cors = require('cors');
 
-const app = express();
-const router = express.Router();
+require('./config/database');
 
-// conecta ao banco
-mongoose.connect('mongodb://<dbuser>:<dbpassword>@ds161493.mlab.com:61493/eventos', {
-    useNewUrlParse: true,
-    useUnifiedTopology: true,
-});
+class App {
+  constructor() {
+    this.app = express();
+    this.server = http.createServer(this.app);
 
-// Carregar as Rotas
-const indexRoute = require('./routes/index-route');
-const productRoute = require('./routes/product-route');
+    this.middlewares();
+    this.routes();
+  }
 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+  middlewares() {
+    this.app.use(express.json());
+    this.app.use(cors());
+  }
 
+  routes() {
+    this.app.use(routes);
+  }
+}
 
-
-app.use('/', indexRoute);
-app.use("/product", productRoute);
-
-module.exports = app;
+module.exports = new App().server;
