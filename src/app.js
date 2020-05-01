@@ -2,9 +2,16 @@
 
 const express = require('express');
 const bodyParser = require('body-parser');
+const mongoose = require('mongoose');
 
 const app = express();
 const router = express.Router();
+
+// conecta ao banco
+mongoose.connect('mongodb://<dbuser>:<dbpassword>@ds161493.mlab.com:61493/eventos', {
+    useNewUrlParse: true,
+    useUnifiedTopology: true,
+});
 
 // Carregar as Rotas
 const indexRoute = require('./routes/index-route');
