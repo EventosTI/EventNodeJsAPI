@@ -30,7 +30,6 @@ const EventSchema = new mongoose.Schema({
   }],
   slug: {
       type: String,
-      required: true,
       trim: true,
       index: true,
       unique: true
@@ -42,5 +41,15 @@ const EventSchema = new mongoose.Schema({
 },{
   timestamps: true,
 });
+
+EventSchema.pre('save', async function(next) {
+  this.slug = generateSlug(this.organizer, this.name)
+
+  next();
+});
+
+function generateSlug(organizer, name) {
+  return name + '-of-' + organizer
+}
 
 module.exports = mongoose.model('Events', EventSchema);
