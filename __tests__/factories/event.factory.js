@@ -19,7 +19,7 @@ event = {
       github_name: speakerName
 		}
 	],
-	tags: [faker.lorem.word, faker.lorem.word]
+	tags: [faker.lorem.word(), faker.lorem.word()]
 };
 
 module.exports = event;
