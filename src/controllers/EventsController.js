@@ -5,35 +5,23 @@ let yup = require('yup');
 const Event = require('../models/Event');
 
 class EventsController {
-    async index(_req, res) {
-      const events = await Event.find();
+  async index(_req, res) {
+    const events = await Event.find();
 
-      res.status(200).json({ events });
-    }
+    res.status(200).json({ events });
+  }
 
-    async create(req, res) {
-      let schema = yup.object().shape({
-        name: yup.string().required(),
-        date: yup.date().required(),
-        local: yup.string(),
-        organizer: yup.string(),
-        inscription_link: yup.string()
-          .url()
-          .required(),
-        description: yup.string().required(),
-        program: yup.array(),
-        slug: yup.string().required(),
-        tags: yup.array()
-      });
+  async create(req, res) {
+    const event = await Event.create(req.body);
 
-      schema.validate(req.body, { abortEarly: false }).catch(err => {
-        return res.status(400).json({ error: err.errors });
-      });
-  
-      const event = await Event.create(req.body);
+    return res.status(201).json(event);
+  }
 
-      return res.status(201).json(event);
-    }
+  async show(req, res) {
+    const event = await Event.findById(req.params.id);
+
+    return res.status(200).json(event);
+  }
 }
 
 module.exports = new EventsController();
