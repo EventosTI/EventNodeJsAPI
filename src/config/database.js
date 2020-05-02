@@ -10,7 +10,7 @@ class Database {
   }
 
   mongo() {
-    this.mongoConnection = mongoose.connect('mongodb://mongo:27017/event_development', { 
+    this.mongoConnection = mongoose.connect('mongodb://evento:Arte1982@ds161493.mlab.com:61493/eventos', {
       useNewUrlParser: true, useUnifiedTopology: true 
     }).then(() => console.log('MongoDB Connected'))
       .catch(err => console.log(`Erro: ${err}`));
