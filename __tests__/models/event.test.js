@@ -1,5 +1,5 @@
 const Event = require('../../src/models/Event');
-const eventParams = require('../factories/Event.factory');
+const eventParams = require('../factories/Event.factory.js');
 
 describe('Event', () => {
     beforeAll(async () => {

@@ -2,7 +2,7 @@ const request = require('supertest');
 const faker = require('faker');
 
 const Event = require('../../src/models/Event');
-const eventParams = require('../factories/Event.factory');
+const eventParams = require('../factories/Event.factory.js');
 const app = require('../../src/app');
 
 describe("EventsController", () => {
