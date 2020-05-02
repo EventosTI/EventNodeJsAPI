@@ -4,15 +4,33 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const EventSchema = new mongoose.Schema({
-    name: String,
-    date_event: String,
+    name: {
+        type: String,
+        required: true,
+    }, 
+    date_begin: {
+        type: Date,
+        required: true,
+    },
+    date_end: {
+        type: Date,
+        required: true,
+    },  
     local: String,
     organizer: String,
-    inscription_link: String,
-    description: String,
+    inscription_link: {
+        type: String,
+        required: true,
+    }, String,
+    image_event: String,
+    description: {
+        type: String,
+        required: true,
+    },
     program: [{
         title_talk: String,
         name_speaker: String,
+        avatar_speaker: String,
         description_talk: String,
         slide_link: String,
         video_link: String,
