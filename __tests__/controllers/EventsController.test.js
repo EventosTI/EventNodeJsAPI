@@ -28,8 +28,7 @@ describe("EventsController", () => {
     });
 
     test('should 400 and return errors', async () => {
-      let invalidParams = eventParams;
-      invalidParams.name = '';
+      let invalidParams = { ...eventParams, name: '' }
 
       return request(app)
         .post("/events")
@@ -48,6 +47,49 @@ describe("EventsController", () => {
         .then(response => {
           expect(response.statusCode).toBe(200);
           expect(response.body.name).toBe(event.name);
+        });
+    });
+  });
+
+  describe("Update ->", () => { 
+    test('should 200 and return a event', async () => {
+      const event = await Event.create({ ...eventParams, name: faker.lorem.word() });
+      validUpdate = { ...eventParams, name: faker.lorem.word() }
+
+      return request(app)
+        .put("/events/" + event._id)
+        .send(validUpdate)
+        .then(response => {
+          expect(response.statusCode).toBe(200);
+          expect(response.body.name).toBe(validUpdate.name);
+        });
+    });
+
+    test('should 400 and return errors', async () => {
+      const event = await Event.create({ ...eventParams, name: faker.lorem.word() });
+      invalidUpdate = { ...eventParams, name: null }
+
+      return request(app)
+        .put("/events/" + event._id)
+        .send(invalidUpdate)
+        .then(response => {
+          expect(response.statusCode).toBe(400);
+        });
+    });
+  });
+
+  describe("Delete ->", () => { 
+    test('should 204', async () => {
+      const event = await Event.create({ 
+        ...eventParams,
+        name: faker.lorem.word(),
+        organizer: faker.lorem.word()
+      });
+
+      return request(app)
+        .delete("/events/" + event._id)
+        .then(response => {
+          expect(response.statusCode).toBe(204);
         });
     });
   });

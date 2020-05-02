@@ -18,5 +18,7 @@ routes.delete("/", ProductsController.destroy);
 routes.get("/events", EventsController.index);
 routes.post("/events", EventValidator, EventsController.create);
 routes.get("/events/:id", EventsController.show);
+routes.put("/events/:id", EventValidator, EventsController.update);
+routes.delete("/events/:id", EventsController.destroy);
 
 module.exports = routes;

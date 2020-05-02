@@ -22,6 +22,22 @@ class EventsController {
 
     return res.status(200).json(event);
   }
+
+  async update(req, res) {
+    await Event.findByIdAndUpdate(req.params.id, req.body, {new: true}, function (errors, model) {
+      if (errors) {
+        return res.status(400).json(errors);
+      } else {
+        return res.status(200).json(model);
+      }
+    });
+  }
+
+  async destroy(req, res) {
+    await Event.findByIdAndRemove(req.params.id)
+    
+    return res.status(204).json(null)
+  }
 }
 
 module.exports = new EventsController();
