@@ -5,6 +5,7 @@
   "main": "src/server.js",
   "scripts": {
     "start": "nodemon --ignore __tests__",
+    "pretest": "export DB_HOST=mongodb://localhost:27017/event_test",
     "test": "NODE_ENV=test jest --coverage"
   },
   "keywords": [],
@@ -17,6 +18,7 @@
     "faker": "^4.1.0",
     "jest": "^25.5.3",
     "mongoose": "^5.4.19",
+    "supertest": "^4.0.2",
     "yup": "^0.28.5"
   },
   "devDependencies": {
