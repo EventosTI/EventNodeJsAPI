@@ -2,7 +2,7 @@
 
 let yup = require('yup');
 
-const Event = require('../schemas/Event');
+const Event = require('../models/Event');
 
 class EventsController {
     async index(_req, res) {
@@ -15,19 +15,22 @@ class EventsController {
       let schema = yup.object().shape({
         name: yup.string().required(),
         date: yup.date().required(),
-        address: yup.string(),
-        organization: yup.string(),
-        link_to_subscribe: yup.string()
+        local: yup.string(),
+        organizer: yup.string(),
+        inscription_link: yup.string()
           .url()
           .required(),
-        description: yup.string().required()
+        description: yup.string().required(),
+        program: yup.array(),
+        slug: yup.string().required(),
+        tags: yup.array()
       });
 
-      schema.validate(req.body.event, { abortEarly: false }).catch(err => {
+      schema.validate(req.body, { abortEarly: false }).catch(err => {
         return res.status(400).json({ error: err.errors });
       });
   
-      const event = await Event.create(req.body.event);
+      const event = await Event.create(req.body);
 
       return res.status(201).json(event);
     }
