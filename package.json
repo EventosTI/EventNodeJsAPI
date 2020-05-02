@@ -4,15 +4,22 @@
   "description": "",
   "main": "src/server.js",
   "scripts": {
-    "start": "nodemon"
+    "start": "nodemon --ignore __tests__",
+    "pretest": "export DB_HOST=mongodb://localhost:27017/event_test",
+    "test": "NODE_ENV=test jest --coverage"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@shelf/jest-mongodb": "^1.1.5",
     "cors": "^2.8.5",
     "express": "^4.17.1",
-    "mongoose": "^5.4.19"
+    "faker": "^4.1.0",
+    "jest": "^25.5.3",
+    "mongoose": "^5.4.19",
+    "supertest": "^4.0.2",
+    "yup": "^0.28.5"
   },
   "devDependencies": {
     "nodemon": "^2.0.3"

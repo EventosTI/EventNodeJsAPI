@@ -11,6 +11,9 @@ services:
       - .:/app
     depends_on:
       - mongo
+    environment:
+      - NODE_ENV=development
+      - DB_HOST=mongodb://mongo:27017/event_development
   mongo:
     container_name: event_mongo
     image: mongo
