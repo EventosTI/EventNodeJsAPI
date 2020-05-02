@@ -1,7 +1,5 @@
 'use strict';
 
-let yup = require('yup');
-
 const Event = require('../models/Event');
 
 class EventsController {
