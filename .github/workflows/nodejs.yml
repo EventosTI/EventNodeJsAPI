@@ -21,6 +21,8 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
+      env:
+        DB_HOST: ${{ secrets.DB_HOST }}
     - run: npm install -y yarn
     - run: yarn install
     - run: yarn run build
