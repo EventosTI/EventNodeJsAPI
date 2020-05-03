@@ -2,9 +2,11 @@ name: build
 
 on:
   push:
-    branches: [ master ]
+    branches:
+      - "*"
   pull_request:
-    branches: [ master ]
+    branches:
+      - "*"
 
 jobs:
   build:
@@ -21,9 +23,6 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
-      env:
-        DB_HOST: ${{ secrets.DB_HOST }}
-    - run: npm install -y yarn
+    - run: npm install -g yarn
     - run: yarn install
-    - run: yarn run build
     - run: yarn test
